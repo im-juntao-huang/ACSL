@@ -62,11 +62,11 @@
 ```
 
 ### 代码运行方式
+1. 进入 `baseline` 目录
+1. 请修改 `run_ner_xxx.py` 或 `scripts/run_ner_xxx.sh` 中的配置信息。
+2. 执行命令：`sh scripts/run_ner_xxx.sh`
 
-1. 请修改 `run_ner_xxx.py` 或 `run_ner_xxx.sh` 中的配置信息。
-2. 执行命令：`cd baseline && sh scripts/run_ner_xxx.sh`
-
-**note**: 预训练模型的目录结构
+**NOTE**: 预训练模型的目录结构
 
 ```text
 ├── model
