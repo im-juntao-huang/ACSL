@@ -10,7 +10,7 @@
     -   提取码：f0ie
 
 数据文件简介：
-- `csl_camera_readly.tsv`: 中文科学文献数据集 CSL https://github.com/ydli-ai/CSL
+- `csl_camera_readly.tsv`: [中文科学文献数据集 CSL](https://github.com/ydli-ai/CSL)
 - `csl_camera_readly_filter.tsv`: 过滤部分学科后的 CSL 数据集
 - `csl_camera_readly_filter_cleaned.tsv`: 清洗后的 CSL 数据集
 - `csl_camera_annotated_1_10000.json`: 基于大语言模型的原始标注数据集
@@ -34,3 +34,9 @@
 ├── process          # 数据处理
 └── statistic        # 数据统计
 ```
+
+## 参考项目
+
+- [Chinese Scientific Literature Dataset](https://github.com/ydli-ai/CSL)
+- [Chinese NER using Bert](https://github.com/lonePatient/BERT-NER-Pytorch)
+- [中文BERT-wwm](https://github.com/ymcui/Chinese-BERT-wwm)
