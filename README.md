@@ -1,6 +1,6 @@
 # 基于大语言模型的中文科技文献标注方法
 
-这个仓库包含了我们论文的代码: 基于大语言模型的中文科技文献标注方法。
+这个仓库包含了我们论文的代码: 基于大语言模型的中文科技文献标注方法 - *A Chinese scientific literature annotation method based on large language model*。
 
 # 中文科技领域实体标注数据集 ACSL
 
