@@ -61,10 +61,16 @@ def collate_fn(batch):
     all_end_ids = all_end_ids[:, :max_len]
     return all_input_ids, all_input_mask, all_segment_ids, all_start_ids,all_end_ids,all_lens
 
-def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
-                                 cls_token_at_end=False,cls_token="[CLS]",cls_token_segment_id=1,
-                                 sep_token="[SEP]",pad_on_left=False,pad_token=0,pad_token_segment_id=0,
-                                 sequence_a_segment_id=0,mask_padding_with_zero=True,):
+def convert_examples_to_features(examples,
+                                 label_list,
+                                 max_seq_length,
+                                 tokenizer,
+                                 cls_token_at_end=False,
+                                 cls_token="[CLS]",
+                                 cls_token_segment_id=1,
+                                 sep_token="[SEP]",
+                                 pad_on_left=False, pad_token=0, pad_token_segment_id=0,
+                                 sequence_a_segment_id=0, mask_padding_with_zero=True,):
     """ Loads a data file into a list of `InputBatch`s
         `cls_token_at_end` define the location of the CLS token:
             - False (Default, BERT/XLM pattern): [CLS] + A + [SEP] + B + [SEP]
@@ -87,7 +93,7 @@ def convert_examples_to_features(examples,label_list,max_seq_length,tokenizer,
         for subject in subjects:
             label = subject[0]
             start = subject[1]
-            end = subject[2]
+            end = subject[2] 
             start_ids[start] = label2id[label]
             end_ids[end] = label2id[label]
             subjects_id.append((label2id[label], start, end))
@@ -230,8 +236,6 @@ class ACSLProcessor(DataProcessor):
         return self._create_examples(self._read_json(os.path.join(data_dir, "test.json")), "test")
 
     def get_labels(self):
-        # """See base class."""
-        # return ["O", "address", "book","company",'game','government','movie','name','organization','position','scene']
         """See base class."""
         return ["O", "研究问题", "研究方法", "研究材料", "评估度量", "研究成果"]
 

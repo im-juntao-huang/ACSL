@@ -18,17 +18,18 @@ def print_config(config):
     return
 
 def init_logger(log_file=None, log_file_level=logging.NOTSET):
+    # 函数功能：初始化日志对象
     '''
     Example:
         >>> init_logger(log_file)
         >>> logger.info("abc'")
     '''
-    if isinstance(log_file,Path):
+    if isinstance(log_file, Path):
         log_file = str(log_file)
     log_format = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                                    datefmt='%m/%d/%Y %H:%M:%S')
 
-    logger = logging.getLogger()
+    logger = logging.getLogger() # 返回一个logger对象
     logger.setLevel(logging.INFO)
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(log_format)

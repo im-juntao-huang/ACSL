@@ -107,7 +107,14 @@ venv.bak/
 # other
 baseline/outputs/
 baseline/.vscode
+baseline/pretrained_models/*
+datasets/acsl/cached*
+datasets/.idea
 
-dataset/raw_data/csl_camera_readly.tsv
-dataset/raw_data/csl_camera_readly_filter.tsv
-dataset/raw_data/csl_camera_readly_filter_cleaned.tsv
+output/*
+dataset/raw_data/
+dataset/qa/
+
+.vscode/
+
+web/

@@ -1,8 +1,8 @@
 CURRENT_DIR=`pwd`
-export BERT_BASE_DIR=hfl/chinese-roberta-wwm-ext
+export BERT_BASE_DIR=pretrained_models/hfl/chinese-roberta-wwm-ext
 export DATA_DIR=$CURRENT_DIR/datasets
 export OUTPUR_DIR=$CURRENT_DIR/outputs
-TASK_NAME="ACSL"
+TASK_NAME="acsl"
 
 # export CUDA_VISIBLE_DEVICES="0,2,3"
 

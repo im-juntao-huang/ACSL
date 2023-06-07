@@ -220,14 +220,6 @@ class ACSLProcessor(DataProcessor):
                      "I-研究问题", "I-研究方法", 'I-研究材料', 'I-评估度量', 'I-研究成果', 
                      "S-研究问题", "S-研究方法", "S-研究材料", 'S-评估度量', 'S-研究成果', 
                      'O',"[START]", "[END]"]
-    
-    # ["X", "B-address", "B-book", "B-company", 'B-game', 'B-government', 'B-movie', 'B-name',
-    #             'B-organization', 'B-position','B-scene',"I-address",
-    #             "I-book", "I-company", 'I-game', 'I-government', 'I-movie', 'I-name',
-    #             'I-organization', 'I-position','I-scene',
-    #             "S-address", "S-book", "S-company", 'S-game', 'S-government', 'S-movie',
-    #             'S-name', 'S-organization', 'S-position',
-    #             'S-scene','O',"[START]", "[END]"]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
@@ -242,5 +234,5 @@ class ACSLProcessor(DataProcessor):
 
 ner_processors = {
     "cner": CnerProcessor,
-    'acsl':ACSLProcessor
+    'acsl': ACSLProcessor
 }

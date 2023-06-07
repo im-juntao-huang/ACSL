@@ -284,7 +284,7 @@ def predict(args, model, tokenizer, prefix=""):
     with open(output_predict_file, "w") as writer:
         for record in results:
             writer.write(json.dumps(record) + '\n')
-    if args.task_name == "ACSL":
+    if args.task_name == "acsl":
         output_submit_file = os.path.join(pred_output_dir, prefix, "test_submit.json")
         test_text = []
         with open(os.path.join(args.data_dir, "test.json"), 'r') as fr:
@@ -418,12 +418,14 @@ def main():
     if args.local_rank not in [-1, 0]:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
     args.model_type = args.model_type.lower()
+    
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    config = config_class.from_pretrained(args.model_name_or_path,num_labels=num_labels)
+    config = config_class.from_pretrained(args.model_name_or_path, num_labels=num_labels)
     config.soft_label = True
     config.loss_type=args.loss_type
     tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path,do_lower_case=args.do_lower_case)
     model = model_class.from_pretrained(args.model_name_or_path,config=config)
+        
     if args.local_rank == 0:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 

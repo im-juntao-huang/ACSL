@@ -290,7 +290,7 @@ def predict(args, model, tokenizer, prefix=""):
     with open(output_predict_file, "w") as writer:
         for record in results:
             writer.write(json.dumps(record) + '\n')
-    if args.task_name == 'ACSL':
+    if args.task_name == 'acsl':
         output_submit_file = os.path.join(pred_output_dir, prefix, "test_submit.json")
         test_text = []
         with open(os.path.join(args.data_dir,"test.json"), 'r') as fr:
@@ -372,19 +372,17 @@ def load_and_cache_examples(args, task, tokenizer, data_type='train'):
     dataset = TensorDataset(all_input_ids, all_input_mask, all_segment_ids, all_lens, all_label_ids)
     return dataset
 
-
 def main():
-    args = get_argparse().parse_args()
 
-    if not os.path.exists(args.output_dir):
-        os.mkdir(args.output_dir)
-    args.output_dir = args.output_dir + '{}'.format(args.model_type)
-    if not os.path.exists(args.output_dir):
-        os.mkdir(args.output_dir)
-    time_ = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime())
+    args = get_argparse().parse_args() #  获取参数
+
+    args.output_dir = args.output_dir + '{}'.format(args.model_type) 
+    os.makedirs(args.output_dir, exist_ok=True) # 创建目录，如何父目录不存在，则创建父目录
+    
+    time_ = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime()) # 获取当前时间
     init_logger(log_file=args.output_dir + f'/{args.model_type}-{args.task_name}-{time_}.log')
     if os.path.exists(args.output_dir) and os.listdir(
-            args.output_dir) and args.do_train and not args.overwrite_output_dir:
+            args.output_dir) and args.do_train and not args.overwrite_output_dir: 
         raise ValueError(
             "Output directory ({}) already exists and is not empty. Use --overwrite_output_dir to overcome.".format(
                 args.output_dir))
@@ -398,35 +396,37 @@ def main():
         ptvsd.wait_for_attach()
         
     # Setup CUDA, GPU & distributed training
-    if args.local_rank == -1 or args.no_cuda:
+    if args.local_rank == -1 or args.no_cuda: # 如果没有指定GPU，则使用CPU
         device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         args.n_gpu = torch.cuda.device_count()
-    else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
-        torch.cuda.set_device(args.local_rank)
-        device = torch.device("cuda", args.local_rank)
-        torch.distributed.init_process_group(backend="nccl")
-        args.n_gpu = 1
+    else:  # 初始化分布式后端，它将负责同步节点/ gpu
+        torch.cuda.set_device(args.local_rank) # 设置当前 GPU
+        device = torch.device("cuda", args.local_rank) # 设置当前设备
+        torch.distributed.init_process_group(backend="nccl") # 初始化分布式训练
+        args.n_gpu = 1 # 每个进程只使用一个GPU
     args.device = device
     logger.warning(
         "Process rank: %s, device: %s, n_gpu: %s, distributed training: %s, 16-bits training: %s",
-        args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), args.fp16, )
+        args.local_rank, device, args.n_gpu, bool(args.local_rank != -1), args.fp16, ) # 打印日志
     
     # Set seed
     seed_everything(args.seed)
     
     # Prepare NER task
-    args.task_name = args.task_name.lower()
-    if args.task_name not in processors:
+    args.task_name = args.task_name.lower() # 
+    if args.task_name not in processors: 
         raise ValueError("Task not found: %s" % (args.task_name))
-    processor = processors[args.task_name]()
-    label_list = processor.get_labels()
-    args.id2label = {i: label for i, label in enumerate(label_list)}
-    args.label2id = {label: i for i, label in enumerate(label_list)}
-    num_labels = len(label_list)
+    processor = processors[args.task_name]() # 获取任务处理器
+    label_list = processor.get_labels()  # 获取标签列表
+    args.id2label = {i: label for i, label in enumerate(label_list)} # 标签id到标签的映射
+    args.label2id = {label: i for i, label in enumerate(label_list)} # 标签到标签id的映射
+    num_labels = len(label_list) # 标签数量
 
-    # Load pretrained model and tokenizer
+    # 加载预训练模型和分词器
     if args.local_rank not in [-1, 0]:
-        torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
+        torch.distributed.barrier() # 调用 dist.barrier() 函数进行进程间同步。当所有进程都到达该函数位置时，
+                                    # 它们将等待彼此，并在所有进程都到达后一起继续执行后续操作。
+        # 确保只有分布式训练的第一个过程才会下载模型和词汇
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config = config_class.from_pretrained(args.model_name_or_path,num_labels=num_labels,)
@@ -501,7 +501,6 @@ def main():
             model = model_class.from_pretrained(checkpoint, config=config)
             model.to(args.device)
             predict(args, model, tokenizer, prefix=prefix)
-
 
 if __name__ == "__main__":
     main()

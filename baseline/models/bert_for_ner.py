@@ -122,4 +122,3 @@ class BertSpanForNer(BertPreTrainedModel):
             total_loss = (start_loss + end_loss) / 2
             outputs = (total_loss,) + outputs
         return outputs
-
