@@ -4,7 +4,7 @@ BERT-based baseline models
 
 ### dataset list
 
-1. acsl: datasets/ACSL
+1. acsl: datasets/acsl
 
 ### model list
 
