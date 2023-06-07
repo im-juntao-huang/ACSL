@@ -28,6 +28,7 @@
 ├── baseline # 基于 BERT 的基准测试模型
 ├── README.txt     
 ├── chat_scie.py     # 基于大语言模型的中文科技文献标注方法
+├── config.py        # 配置信息
 ├── dataset          # CSL 与 ACSL 数据集
 ├── handle_error.py  # 标注错误样本的处理
 ├── output           # 输出文件
