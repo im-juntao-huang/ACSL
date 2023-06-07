@@ -108,8 +108,8 @@ venv.bak/
 baseline/outputs/
 baseline/.vscode
 baseline/pretrained_models/*
-datasets/acsl/cached*
-datasets/.idea
+baseline/datasets/acsl/cached*
+baseline/.idea
 
 output/*
 dataset/raw_data/

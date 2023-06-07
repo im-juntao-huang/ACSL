@@ -40,7 +40,7 @@
 
 ### 数据集
 
-1. acsl: baseline/datasets/ACSL
+1. acsl: baseline/datasets/acsl
 
 ### 模型
 
